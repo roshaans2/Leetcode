@@ -1,0 +1,17 @@
+bool checkPalindrome(int l, int r,string &s){
+	if(l>r){
+		return true;
+	}
+	if(s[l] != s[r]){
+		return false;
+	}
+	return checkPalindrome(l+1,r-1,s);
+}
+
+
+bool isPalindrome(string &s)
+{
+	return checkPalindrome(0, s.size()-1,s);
+}
+
+T.C - O(n)
