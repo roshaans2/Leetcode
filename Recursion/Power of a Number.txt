@@ -1,0 +1,42 @@
+#include <bits/stdc++.h> 
+long long Pow(int X, int N)
+{
+   if(N==0){
+       return 1;
+   }
+   return X*Pow(X,N-1);
+}
+
+Time Complexity - O(N)
+
+
+
+#include <bits/stdc++.h> 
+long long Pow(int X, int N)
+{
+   if(N==0){
+       return 1;
+   }
+   long long temp = Pow(X,N/2);
+   if(N%2){
+       return temp*temp*X;
+   }
+   else{
+       return temp*temp;
+   }
+}
+
+Time Complexity - O(logN)
+
+Explanation -
+
+n/2,n/4,n/8,.....n/2^k
+n/2^k = 1
+n = 2^k
+log(n) = log(2^k)
+log(n) = k*log(2)
+k = log(n)/log(2)
+k - logn(base 2)
+
+T.C = log(n)
+
