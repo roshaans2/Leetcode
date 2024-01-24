@@ -1,0 +1,65 @@
+Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.
+
+Each number in candidates may only be used once in the combination.
+
+Note: The solution set must not contain duplicate combinations.
+
+ 
+
+Example 1:
+
+Input: candidates = [10,1,2,7,6,1,5], target = 8
+Output: 
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+Example 2:
+
+Input: candidates = [2,5,2,1,2], target = 5
+Output: 
+[
+[1,2,2],
+[5]
+]
+ 
+
+Approach: 
+
+Here you have find unique combinations, 
+If you not pick an element, you should not pick it in future as well
+So using while loop increment i untill you find a non repeating element.
+
+class Solution {
+public:
+    void solve(int i,int sum,int target,vector<int>&v,vector<int>&subset,vector<vector<int>>&ans){
+        if(sum == target){
+            ans.push_back(subset);
+            return;
+        }
+        if(i>=v.size()){
+            return;
+        }
+        if(sum > target){
+            return;
+        }
+        sum += v[i];
+        subset.push_back(v[i]);
+        solve(i+1,sum,target,v,subset,ans);
+
+        sum -= v[i];
+        subset.pop_back();
+        while(i+1 < v.size() && v[i] == v[i+1]) i++;
+        solve(i+1,sum,target,v,subset,ans);
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<int>subset;
+        vector<vector<int>>ans;
+        int sum = 0;
+        sort(candidates.begin(),candidates.end());
+        solve(0,sum,target,candidates,subset,ans);
+        return ans;
+    }
+};
