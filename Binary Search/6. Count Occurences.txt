@@ -1,0 +1,70 @@
+You have been given a sorted array/list of integers 'arr' of size 'n' and an integer 'x'.
+
+
+
+Find the total number of occurrences of 'x' in the array/list.
+
+
+
+Example:
+Input: 'n' = 7, 'x' = 3
+'arr' = [1, 1, 1, 2, 2, 3, 3]
+
+Output: 2
+
+Explanation: Total occurrences of '3' in the array 'arr' is 2.
+
+#include<bits/stdc++.h>
+int firstOccurence(vector<int>&nums,int target){
+    int low = 0;
+    int high = nums.size()-1;
+    int ans = -1;
+    while(low<=high){
+        int mid = low + (high-low)/2;
+        if(nums[mid] == target){
+            ans = mid;
+            high = mid-1;
+        }
+        else if(nums[mid] < target){
+            low = mid+1;
+        }
+        else{
+             high = mid-1;
+        }
+    }
+    return ans;
+}
+int lastOccurence(vector<int>&nums,int target){
+    int low = 0;
+    int high = nums.size()-1;
+    int ans = -1;
+    while(low <= high){
+        int mid = low + (high-low)/2;
+        if(nums[mid] == target){
+            ans = mid;
+            low = mid+1;
+        } 
+        else if(nums[mid] < target){
+            low = mid+1;
+        }
+        else{
+            high = mid-1;
+        }
+    }
+    return ans;
+}
+vector<int> searchRange(vector<int>& nums, int target) {
+    int first = firstOccurence(nums,target);
+    if(first == -1) return {-1,-1};
+    int last = lastOccurence(nums,target);
+    return {first,last};
+}
+
+
+
+int count(vector<int>& arr, int n, int x) {
+	vector<int>ans = searchRange(arr,x);
+	if(ans[0] == -1) return 0;
+	return ans[1]-ans[0] + 1;
+}
+
